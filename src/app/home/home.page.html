@@ -1,25 +1,29 @@
-
+<ion-header translucent="true">
+  <ion-toolbar color="danger">
+    <ion-title class="ion-text-center" size="large">Cloud Deployment Webinar</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <form #submitform = "ngForm" (ngSubmit)="register(submitform)">
     <ion-card class="content">
       <ion-card-header class="ion-text-center">
         <ion-card-title>
-          <strong>Registration For: Webinar</strong>
+          <strong>Registration Form</strong>
         </ion-card-title>
         <ion-card-subtitle>July 28, 2021 - 4:00PM to 5:00PM</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content class="content1">
 
         <ion-item>
-          <ion-label position="floating">Name</ion-label>
+          <ion-label color="dark" position="floating">Name</ion-label>
           <ion-input type="string" [(ngModel)]="data.fname" #fnameCtrl="ngModel" name="fname" required></ion-input>
         </ion-item>
-        <ion-item *ngIf="!fnameCtrl.valid && fnameCtrl.touched">
+        <div *ngIf="!fnameCtrl.valid && fnameCtrl.touched">
           <ion-text color="danger">Name is required</ion-text>
-        </ion-item>
+        </div>
 
         <ion-item>
-          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-label color="dark" position="floating">Mobile Number</ion-label>
           <ion-input placeholder="Whatsapp No is preferred" [pattern]="mobNumberPattern" required type="Number" [(ngModel)]="data.pnum" #pnumCtrl="ngModel" name="pnum"></ion-input>
         </ion-item>
         <div *ngIf="pnumCtrl.errors && submitform.submitted && !pnumCtrl.valid" [ngClass] = "'error'">
@@ -29,32 +33,32 @@
         </div>
 
         <ion-item>
-          <ion-label position="floating">Email ID</ion-label>
+          <ion-label color="dark" position="floating">Email ID</ion-label>
           <ion-input type="email" name="email" required [(ngModel)]="data.email" #emailCtrl="ngModel" email></ion-input>
         </ion-item>
-        <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched">
+        <div *ngIf="!emailCtrl.valid && emailCtrl.touched">
           <ion-text color="danger">Email is not valid</ion-text>
-        </ion-item>
+        </div>
 
         <ion-item>
-          <ion-label position="floating">City</ion-label>
+          <ion-label color="dark" position="floating">City</ion-label>
           <ion-input type="string"[(ngModel)]="data.city" #cityCtrl="ngModel" name="city" required></ion-input>
         </ion-item>
-        <ion-item *ngIf="!cityCtrl.valid && cityCtrl.touched">
+        <div *ngIf="!cityCtrl.valid && cityCtrl.touched">
           <ion-text color="danger">City name is required</ion-text>
-        </ion-item>
+        </div>
 
         <ion-item>
-          <ion-label position="floating">Profession</ion-label>
+          <ion-label color="dark" position="floating">Profession</ion-label>
           <ion-select type="string"[(ngModel)]="data.job" #jobCtrl="ngModel" name="job" required>
             <ion-select-option value="Student">Student</ion-select-option>
             <ion-select-option value="Working">Working</ion-select-option>
             <ion-select-option value="Others">Others</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item *ngIf="!jobCtrl.valid && jobCtrl.touched">
+        <div *ngIf="!jobCtrl.valid && jobCtrl.touched">
           <ion-text color="danger">Profession is required</ion-text>
-        </ion-item>
+        </div>
 
         <ion-button class="submit"color="danger" type="submit" [disabled]="!submitform.form.valid">
           Submit

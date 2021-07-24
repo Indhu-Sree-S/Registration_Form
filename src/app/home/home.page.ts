@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { ConnectService } from './connect.service';
+import { variable05 } from './variable';
 
 
 @Component({
@@ -11,28 +13,27 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   data = { fname: '',pnum: '',email: '',city: '',job: ''};
   mobNumberPattern = '^((\\+91-?)|0)?[6-9]{1}[0-9]{9}$';
-  baseURI = 'https://cloudide.appson.in/workspace/vaishnavi/Registration/registration.php';
-  data1 = this.data;
-  hideForm: boolean;
+  baseURI = 'https://cloudide.appson.in/workspace/vaishnavi/registration.php';
+ // baseURI = 'registration.php';
+   hideForm: boolean;
 
 
   constructor(
     private alertCtrl: AlertController,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private connect: ConnectService
   ) {}
 
+  ngOnInit(){
+    this.router.navigate(['/home']);
+  }
+
   register(submitform: NgForm){
-    this.data1.fname = submitform.value.fname;
-    this.data1.email = submitform.value.email;
-    this.data1.pnum = submitform.value.pnum;
-    this.data1.city = submitform.value.city;
-    this.data1.job = submitform.value.job;
-    this.sending();
-    this.successalert();
+    this.checkalert();
     }
 
   sending(){
@@ -47,29 +48,33 @@ export class HomePage {
     );
     console.log(file);
     this.http.post(this.baseURI,file)
-    .subscribe(data => {
-     console.log(data);
-     alert('working');
+    .subscribe(data1 => {
+     console.log(data1);
+     //alert('working');
+     //this.connect.success(this.data);
     },
     err => {
     console.log('ERROR!: ', err);
-    alert('NOt Working');
-    alert(err);
-    console.log(err);
-    this.hideForm   = true;
+    //alert('NOt Working');
+    this.connect.notworking(err);
+    //this.hideForm   = true;
     //this.sendNotification(`Congratulations the technology: ${name} was successfully added`);
   });
   }
 
-  successalert(){
+  checkalert(){
     this.alertCtrl.create({
-      header: 'Thank You' ,
-      message: 'Registered Successfully',
+      header: this.data.fname ,
+      message: 'Mobile Number '+ this.data.pnum + ' and Email Id '+ this.data.email,
       buttons: [
+        {
+          text: 'Edit',
+          role: 'cancel'},
       {
-        text: 'Okay',
+        text: 'Submit',
         handler: () => {
-          this.router.navigate(['/home']);
+          this.sending();
+          this.router.navigate(['/home/confirm']);
         }
       }]
      }).then(alertEL => {

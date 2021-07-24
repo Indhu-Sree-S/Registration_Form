@@ -1,0 +1,42 @@
+<ion-header translucent="true">
+  <ion-toolbar color="danger">
+    <ion-title class="ion-text-center" size="large">Cloud Deployment Webinar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="{ flag }" class="content">
+    <ion-card >
+      <ion-card-header class="ion-text-center">
+        <ion-card-title>
+          <strong>Successfully Registered</strong>
+        </ion-card-title>
+        <ion-card-subtitle>Be ready on July 28, 2021 - 4:00PM to 5:00PM</ion-card-subtitle>
+      </ion-card-header>
+      </ion-card>
+      <ion-button class="button" color="danger" (click)="buttonclick()">Another Registrant</ion-button>
+  </div>
+
+  <div *ngIf="!{ flag }" class="content">
+    <ion-card>
+      <ion-card-header class="ion-text-center">
+        <ion-card-title>
+          <strong>Error!!!</strong>
+        </ion-card-title>
+        <ion-card-subtitle>Try Again Later</ion-card-subtitle>
+      </ion-card-header>
+      </ion-card>
+      <ion-button class="button" color="danger"onclick="buttonclick()">Resubmit</ion-button>
+  </div>
+
+  <div class="contact">
+    <p>--- For any Queries ---</p>
+    <p>Contact</p>
+    <p>Event Organizer</p>
+    <p>Mobile Number : 9487019897</p>
+    <p color="dark"><a href="mailto:info@increatech.com">info@increatech.com</a></p>
+  </div>
+
+
+
+</ion-content>

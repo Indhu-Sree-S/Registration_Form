@@ -6,6 +6,10 @@ ion-content{
   background-color: #d32013;
 }
 
+.button{
+  margin-left: 15%;
+}
+
 ion-card{
   --ion-background-color: hsla(54, 95%, 86%, 0.897);
 }
@@ -15,14 +19,10 @@ ion-card{
   margin-top: 30px;
   margin-bottom: 30px;
 }
-
-.content1{
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 10px;
+a{
+  color: black;
 }
-
-.submit{
-  margin-left: 45%;
-  margin-top: 40px;
+.contact{
+  text-align: center;
+  margin-top: 65%
 }
