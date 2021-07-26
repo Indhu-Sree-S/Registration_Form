@@ -4,9 +4,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { ConnectService } from './connect.service';
-import { variable05 } from './variable';
-
 
 @Component({
   selector: 'app-home',
@@ -17,15 +14,14 @@ export class HomePage implements OnInit{
   data = { fname: '',pnum: '',email: '',city: '',job: ''};
   mobNumberPattern = '^((\\+91-?)|0)?[6-9]{1}[0-9]{9}$';
   baseURI = 'https://cloudide.appson.in/workspace/vaishnavi/registration.php';
- // baseURI = 'registration.php';
-   hideForm: boolean;
+  message: any;
+  form: any;
 
 
   constructor(
     private alertCtrl: AlertController,
     private router: Router,
-    private http: HttpClient,
-    private connect: ConnectService
+    private http: HttpClient
   ) {}
 
   ngOnInit(){
@@ -34,6 +30,7 @@ export class HomePage implements OnInit{
 
   register(submitform: NgForm){
     this.checkalert();
+    this.form = submitform;
     }
 
   sending(){
@@ -50,15 +47,12 @@ export class HomePage implements OnInit{
     this.http.post(this.baseURI,file)
     .subscribe(data1 => {
      console.log(data1);
-     //alert('working');
-     //this.connect.success(this.data);
+     this.message = data1;
+     this.successalert();
     },
     err => {
     console.log('ERROR!: ', err);
-    //alert('NOt Working');
-    this.connect.notworking(err);
-    //this.hideForm   = true;
-    //this.sendNotification(`Congratulations the technology: ${name} was successfully added`);
+    this.erroralert();
   });
   }
 
@@ -74,7 +68,40 @@ export class HomePage implements OnInit{
         text: 'Submit',
         handler: () => {
           this.sending();
-          this.router.navigate(['/home/confirm']);
+        }
+      }]
+     }).then(alertEL => {
+       alertEL.present();
+     });
+  }
+
+  successalert(){
+    this.alertCtrl.create({
+      header: this.data.fname ,
+      message: this.message,
+      buttons: [
+        {
+        text: 'Okay',
+        handler: () => {
+          this.form.resetForm();
+          this.router.navigate(['/home']);
+        }
+      }]
+     }).then(alertEL => {
+       alertEL.present();
+     });
+  }
+
+  erroralert(){
+    this.alertCtrl.create({
+      header: 'Error !!!',
+      message: 'Try Again Later',
+      buttons: [
+        {
+        text: 'Okay',
+        handler: () => {
+          this.form.resetForm();
+          this.router.navigate(['/home']);
         }
       }]
      }).then(alertEL => {
