@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage implements OnInit{
   data = { fname: '',pnum: '',email: '',city: '',job: ''};
   mobNumberPattern = '^((\\+91-?)|0)?[6-9]{1}[0-9]{9}$';
-  baseURI = 'https://cloudide.appson.in/workspace/vaishnavi/registration.php';
+  baseURI = 'https://http://localhost/RForm.php';
   message: any;
   form: any;
 
